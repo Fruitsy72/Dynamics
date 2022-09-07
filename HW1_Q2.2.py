@@ -1,11 +1,17 @@
 from netCDF4 import Dataset
 import matplotlib.pyplot as plt
+import numpy as np
 
 ncfile = 'air.mon.ltm.nc'
 
 data = Dataset(ncfile, mode = 'r')
 
-air = data.variables['air'][:12,11,36,0]
+air = data.variables['air'][:12,11,36,:]
+
+avg_temp = np.zeros(12)
+
+for i in range(len(air)):
+  avg_temp[i] = np.mean(air[i])
 
 level = data.variables['level'][11]
 
